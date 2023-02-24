@@ -3,6 +3,8 @@ import './App.css';
 import Messages from './components/Messages';
 import { useState } from 'react';
 import Input from './components/Input';
+//import Scaledrone from 'scaledrone-react-hooks';
+import { useEffect } from 'react';
 
 function App(props) {
 
@@ -16,43 +18,24 @@ function App(props) {
     return adjective + noun;
   }
 
-
-
-  //RANDOM COLOR FUNCTION
+  //RANDOM COLOR FUNCTION-----------------------------------------------------------
   function randomColor() {
     return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
   }
 
-
-  //ARRAYEVI S PRIMJERIMAP
- /*  state = {
-    messages: [
-      {
-        text: "This is a test message!",
-        member: {
-          color: "blue",
-          username: "bluemoon"
-        }
-      }
-    ],
-    member: {
-      username: randomName(),
-      color: randomColor()
-    }
-  }
- */
-  const [messages, setMessages] = useState ([
-    {
+  //DEFINICIJE STATEOVA--------------------------------------------------------------
+  const [messages, setMessages] = useState([
+    /* {
       text: "This is a test message!",
       member: {
         color: "blue",
         username: "bluemoon"
       }
-    }
+    } */
   ])
 
 
-  const [member, setMember] = useState (
+  const [member, setMember] = useState(
 
     {
       username: randomName(),
@@ -60,31 +43,96 @@ function App(props) {
     }
   )
 
+  //const [member, setMember] = useState({});
+  //const [messages, setMessages] = useState([]);
+  const [drone, setDrone] = useState(null);
+  const [room, setRoom] = useState(null);
 
+
+  //DEFINICIJE STATEOVA--------------------------------------------------------------
 
   const onSendMessage = (message) => {
-    setMessages([...messages, { text: message, member }]);
+    //setMessages([...messages, { text: message, member }]);
+    drone.publish({
+      room: 'observable-room',
+      message,
+    });
   };
-    
 
+//sCQTtqgc9lORXtLw - Teina soba
+//'APZQ06BmYVq7Oa5j'- Moja Soba
+  useEffect(() => {
+    const newDrone = new window.Scaledrone('APZQ06BmYVq7Oa5j', { data: member });
+    setDrone(newDrone);
+  }, [])
+
+  useEffect(() => {
+    console.log('ovdje nova poruka', messages)
+  }, [messages])
+ 
+
+
+
+
+
+  //DEFINICIJA SCALEDRONEA-------------------------------------------------------------
+
+  useEffect(() => {
+    if (drone) {
+      //const newDrone = new window.Scaledrone('APZQ06BmYVq7Oa5j', { data: member });
+
+      drone.on('open', (error) => {
+        if (error) {
+          console.error(error);
+        } else {
+          setMember({ ...member, id: drone.clientId });
+
+
+          const newRoom = drone.subscribe('observable-room');
+          setRoom(newRoom);
+
+          //----New Room------------------------------------------------
+          newRoom.on('data', (data, member) => {
+            const newMessage = { member, text: data };
+            setMessages((messages) => [...messages, newMessage]);
+          });
+          //----New Room------------------------------------------------
+        }
+      });
+
+      // setDrone(newDrone);
+    }
+  }, [drone]);
+
+
+
+
+  //RETURN----------------------------------------------------------------------------------------------------
 
   return (
-    <div className="App">
 
-<div className="App-header">
+    <div className="App">
+      <div className="App-header">
         <h1>Logorrhea</h1>
       </div>
 
+      <Messages messages={messages} currentMember={member} />
 
-
-
-      <Messages messages={messages} currentMember={member} /> 
-
-      <Input onSendMessage={onSendMessage}/>
-
+      <Input onSendMessage={onSendMessage} />
 
     </div>
   );
 }
 
 export default App;
+
+
+
+
+
+///////////////////KRAJ--------------------
+
+
+
+
+
