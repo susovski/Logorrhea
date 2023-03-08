@@ -5,10 +5,13 @@ function Messages(props) {
  
 
   const { messages, currentMember } = props;
+  console.log('msg:',messages)
+  console.log('mmbr:',currentMember)
   
 
   function renderMessage(message) {
     const { member, text } = message;
+    console.log('MEMBER:',member)
 
     const messageFromMe = member.id === currentMember.id;
     const className = messageFromMe
@@ -22,8 +25,8 @@ function Messages(props) {
           style={{ backgroundColor: member.clientData.color }}
         />
         <div className="Message-content">
-          <div className="username">OVO JE USER{member.clientData.username}</div>
-          <div className="text">OVO JE TEKST{text}</div>
+           <div className="username">{member.clientData.username}</div> 
+          <div className="text">{text}</div> 
         </div>
       </li>
     );

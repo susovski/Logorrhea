@@ -3,10 +3,14 @@ import React, { useState } from 'react';
 function Input(props) {
     const [text, setText] = useState("");
 
+
+    
     const onSubmit = (e) => {
+        console.log('ovo je text',text)
         e.preventDefault();
-        setText("");
         props.onSendMessage(text);
+        setText("");
+        
     }
 
     const onChange = (e) => {
