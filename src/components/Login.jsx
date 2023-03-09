@@ -1,84 +1,88 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import avatar1 from "../images/logorrhea_avatar_1.png"
+import avatar2 from "../images/logorrhea_avatar_2.png"
+import avatar3 from "../images/logorrhea_avatar_3.png"
 
-function Login() {
-  const [name, setName] = useState('');
-  const [avatar, setAvatar] = useState('');
+function Login({ handleNameChange, handleAvatarChange, name, avatar, avatarColor }) {
 
-  const history = useNavigate();
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleAvatarChange = (event) => {
-    setAvatar(event.target.value);
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (name && avatar) {
-      history.push({
-        pathname: '/room',
-        state: { name, avatar },
-      });
+      navigate("/room");
+
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+
+    <div className="Login">
+
+      <div className="Hero-headline">Unleash Your Inner Monster!</div>
+
+      <p className="Hero-description">
+        <b>Logorrhea</b> <i>(log·​or·​rhea)</i>: <i>excessive and often incoherent talkativeness or wordiness</i>. Perfect chat app for anyone who loves to talk, chat and express themselves in the most lively way possible.
+        Our fluffy avatars will inspire you to unleash your inner monster and communicate your ideas and feelings like never before! Enter your name, choose your avatar and hit Enter to become logorrheic.
+      </p>
+
+      <form className="Name-selector" onSubmit={handleSubmit}>
         <label>
-          Name:
-          <input type="text" value={name} onChange={handleNameChange} />
+          <input type="text" placeholder="Enter your name" value={name} onChange={handleNameChange} />
         </label>
         <br />
-        <label>
-          Avatar:
-          <div>
+
+        <div className="Avatar-selector" >
+
+          <div className="Avatar-choice">
+            <label htmlFor="avatar1">
+              <img src={avatar1} alt="Avatar 1" height={100} width={100} />
+            </label>
             <input
               type="radio"
               id="avatar1"
               name="avatar"
-              value="https://png.pngtree.com/png-clipart/20200701/original/pngtree-character-default-avatar-png-image_5407167.jpg"
-              checked={avatar === 'https://png.pngtree.com/png-clipart/20200701/original/pngtree-character-default-avatar-png-image_5407167.jpg'}
+              color='#fdcd8d'
+              value={avatar1}
+              checked={avatar === avatar1}
               onChange={handleAvatarChange}
             />
-            <label htmlFor="avatar1">
-              <img src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-character-default-avatar-png-image_5407167.jpg" alt="Avatar 1" height={60} width={60} />
-            </label>
           </div>
-          <div>
+
+          <div className="Avatar-choice">
+            <label htmlFor="avatar2">
+              <img src={avatar2} alt="Avatar 2" height={100} width={100} />
+            </label>
             <input
               type="radio"
               id="avatar2"
               name="avatar"
-              value="https://simg.nicepng.com/png/small/115-1150821_default-avatar-comments-sign-in-icon-png.png"
-              checked={avatar === 'https://simg.nicepng.com/png/small/115-1150821_default-avatar-comments-sign-in-icon-png.png'}
+              color='#fdcd8d'
+              value={avatar2}
+              checked={avatar === avatar2}
               onChange={handleAvatarChange}
             />
-            <label htmlFor="avatar2">
-              <img src="https://simg.nicepng.com/png/small/115-1150821_default-avatar-comments-sign-in-icon-png.png" alt="Avatar 2" height={60} width={60}  />
-            </label>
           </div>
-          <div>
+
+          <div className="Avatar-choice">
+            <label htmlFor="avatar3">
+              <img src={avatar3} alt="Avatar 3" height={100} width={100} />
+            </label>
             <input
               type="radio"
               id="avatar3"
               name="avatar"
-              value="https://www.seekpng.com/png/small/115-1150053_avatar-png-transparent-png-royalty-free-default-user.png"
-              checked={avatar === 'https://www.seekpng.com/png/small/115-1150053_avatar-png-transparent-png-royalty-free-default-user.png'}
+              color='#fdcd8d'
+              value={avatar3}
+              checked={avatar === avatar3}
               onChange={handleAvatarChange}
             />
-            <label htmlFor="avatar3">
-              <img src="https://www.seekpng.com/png/small/115-1150053_avatar-png-transparent-png-royalty-free-default-user.png" alt="Avatar 3" height={60} width={60}  />
-            </label>
           </div>
-        </label>
+
+        </div>
         <br />
-        <Link to="/room"><button type="submit">Enter</button></Link>
-        {/* <button type="submit"><link to="/room">Enter</link></button> */}
+        <button className="Enter-button" type="submit">Enter chat</button>
       </form>
     </div>
   );

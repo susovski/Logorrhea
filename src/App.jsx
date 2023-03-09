@@ -1,153 +1,84 @@
-import logo from './logo.svg';
-import './App.css';
-import Messages from './components/Messages';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import Input from './components/Input';
+import './App.css';
+import { useState } from 'react';
 import Header from './components/Header';
 import Room from './components/Room';
 import Login from './components/Login';
-//import Scaledrone from 'scaledrone-react-hooks';
-import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import avatar1 from "./images/logorrhea_avatar_1.png"
+import avatar2 from "./images/logorrhea_avatar_2.png"
+import avatar3 from "./images/logorrhea_avatar_3.png"
 
 
 
 
 function App(props) {
 
-
- /*  //RANDOM NAME FUNCTION
-  function randomName() {
-    const adjectives = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry", "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring", "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered", "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green", "long", "late", "lingering", "bold", "little", "morning", "muddy", "old", "red", "rough", "still", "small", "sparkling", "throbbing", "shy", "wandering", "withered", "wild", "black", "young", "holy", "solitary", "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine", "polished", "ancient", "purple", "lively", "nameless"];
-    const nouns = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea", "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn", "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird", "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower", "firefly", "feather", "grass", "haze", "mountain", "night", "pond", "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf", "thunder", "violet", "water", "wildflower", "wave", "water", "resonance", "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper", "frog", "smoke", "star"];
-    const adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const noun = nouns[Math.floor(Math.random() * nouns.length)];
-    return adjective + noun;
-  } */
-
- /*  //RANDOM COLOR FUNCTION-----------------------------------------------------------
-  function randomColor() {
-    return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16);
-  } */
-
-  //DEFINICIJE STATEOVA--------------------------------------------------------------
-  const [messages, setMessages] = useState([
-    /* {
-      text: "This is a test message!",
-      member: {
-        color: "blue",
-        username: "bluemoon"
-      }
-    } */
-  ])
-
-
+  const [name, setName] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [avatarColor, setAvatarColor] = useState("");
+  const [messages, setMessages] = useState([])
   const [member, setMember] = useState(
 
     {
       username: 'Boyo',
       color: '#534234'
     }
-  ) 
+  )
 
 
- /*  const [member, setMember] = useState(
-
-    {
-      username: 'Boyo',
-      color: '#534234'
-    }
-  ) */
-
-
-/*   
-
-const [drone, setDrone] = useState(null);
-const [room, setRoom] = useState(null);
-
-
-  //DEFINICIJE STATEOVA--------------------------------------------------------------
-
-  const onSendMessage = (message) => {
-    //setMessages([...messages, { text: message, member }]);
-    drone.publish({
-      room: 'observable-room',
-      message,
-    });
+  const handleNameChange = (event) => {
+    setName(event.target.value);
   };
 
-//sCQTtqgc9lORXtLw - Teina soba
-//'APZQ06BmYVq7Oa5j'- Moja Soba
-  useEffect(() => {
-    const newDrone = new window.Scaledrone('APZQ06BmYVq7Oa5j', { data: member });
-    setDrone(newDrone);
-  }, [])
+  const handleAvatarChange = (event) => {
+    const selectedAvatar = event.target.value;
+    setAvatar(selectedAvatar);
+    setAvatarColor(event.target.color);
 
-  useEffect(() => {
-    console.log('ovdje nova poruka', messages)
-  }, [messages])
- 
-
- */
-
-
-
-  //DEFINICIJA SCALEDRONEA-------------------------------------------------------------
-
- /*  useEffect(() => {
-    if (drone) {
-      //const newDrone = new window.Scaledrone('APZQ06BmYVq7Oa5j', { data: member });
-
-      drone.on('open', (error) => {
-        if (error) {
-          console.error(error);
-        } else {
-          setMember({ ...member, id: drone.clientId });
-
-
-          const newRoom = drone.subscribe('observable-room');
-          setRoom(newRoom);
-
-          //----New Room------------------------------------------------
-          newRoom.on('data', (data, member) => {
-            const newMessage = { member, text: data };
-            setMessages((messages) => [...messages, newMessage]);
-          });
-          //----New Room------------------------------------------------
-        }
-      });
-
-      // setDrone(newDrone);
+    switch (selectedAvatar) {
+      case avatar1:
+        setAvatarColor('#7ab6ae');
+        break;
+      case avatar2:
+        setAvatarColor('#e9ada3');
+        break;
+      case avatar3:
+        setAvatarColor('#fdcd8d');
+        break;
+      default:
+        setAvatarColor('#786c7d');
     }
-  }, [drone]);
 
- */
-
-
-  //RETURN----------------------------------------------------------------------------------------------------
+  };
 
   return (
 
-<Router>
+    <Router>
 
+      <Header />
+      <main>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={
+              <Login
+                handleNameChange={handleNameChange}
+                handleAvatarChange={handleAvatarChange}
+                name={name}
+                avatar={avatar}
+              />} />
 
-<div className="App">
+            <Route path="/room" element={
+              <Room
+                name={name}
+                avatar={avatar}
+                color={avatarColor}
+              />} />
+          </Routes>
+        </div>
+      </main>
 
-{/*  <NotificationContext.Provider value={{notification, setNotification}}> */}
-   <Header />
-   <main>
-     <Routes>
-       <Route path="/" element={<Login />} />
-       <Route path="/room" element={<Room />} />
-     </Routes>
-   </main>
-{/*    </NotificationContext.Provider> */}
-
-</div>
-
-</Router>
+    </Router>
   );
 }
 
@@ -155,9 +86,6 @@ export default App;
 
 
 
-
-
-///////////////////KRAJ--------------------
 
 
 

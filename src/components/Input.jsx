@@ -3,14 +3,10 @@ import React, { useState } from 'react';
 function Input(props) {
     const [text, setText] = useState("");
 
-
-    
     const onSubmit = (e) => {
-        console.log('ovo je text',text)
         e.preventDefault();
         props.onSendMessage(text);
         setText("");
-        
     }
 
     const onChange = (e) => {
@@ -19,7 +15,7 @@ function Input(props) {
     }
 
     return (
-        <div className="Input">
+        <div>
             <form onSubmit={onSubmit}>
                 <input
                     onChange={onChange}
