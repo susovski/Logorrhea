@@ -1,4 +1,3 @@
-
 import './App.css';
 import { useState } from 'react';
 import Header from './components/Header';
@@ -9,23 +8,11 @@ import avatar1 from "./images/logorrhea_avatar_1.png"
 import avatar2 from "./images/logorrhea_avatar_2.png"
 import avatar3 from "./images/logorrhea_avatar_3.png"
 
-
-
-
 function App(props) {
 
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [avatarColor, setAvatarColor] = useState("");
-  const [messages, setMessages] = useState([])
-  const [member, setMember] = useState(
-
-    {
-      username: 'Boyo',
-      color: '#534234'
-    }
-  )
-
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -49,13 +36,11 @@ function App(props) {
       default:
         setAvatarColor('#786c7d');
     }
-
   };
 
   return (
 
     <Router>
-
       <Header />
       <main>
         <div className="App">
@@ -77,7 +62,6 @@ function App(props) {
           </Routes>
         </div>
       </main>
-
     </Router>
   );
 }
