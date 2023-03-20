@@ -1,4 +1,3 @@
-//import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import avatar1 from "../images/logorrhea_avatar_1.png"
 import avatar2 from "../images/logorrhea_avatar_2.png"
