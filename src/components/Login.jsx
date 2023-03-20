@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import avatar1 from "../images/logorrhea_avatar_1.png"
 import avatar2 from "../images/logorrhea_avatar_2.png"
 import avatar3 from "../images/logorrhea_avatar_3.png"
+import { Link } from 'react-router-dom';
 
 function Login({ handleNameChange, handleAvatarChange, name, avatar, avatarColor }) {
 
@@ -16,11 +17,14 @@ function Login({ handleNameChange, handleAvatarChange, name, avatar, avatarColor
 
   return (
 
+
+
     <div className="Login">
+      <div className="App-info"><Link to="/About">info</Link></div>
       <div className="Hero-headline">Unleash Your Inner Monster!</div>
       <p className="Hero-description">
         <b>Logorrhea</b> <i>(log·​or·​rhea)</i>: <i>excessive and often incoherent talkativeness or wordiness</i>. Perfect chat app for anyone who loves to talk, chat and express themselves in the most lively way possible.
-        Our fluffy avatars will inspire you to unleash your inner monster and communicate your ideas and feelings like never before! Enter your name, choose your avatar and hit Enter to become logorrheic.
+        Our fluffy avatars will inspire you to unleash your inner monster and communicate your ideas and feelings like never before! Enter your name, choose your avatar and hit Enter!
       </p>
       <form className="Name-selector" onSubmit={handleSubmit}>
         <label>

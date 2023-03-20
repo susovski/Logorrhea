@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Header from './components/Header';
 import Room from './components/Room';
 import Login from './components/Login';
+import About from './components/About';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import avatar1 from "./images/logorrhea_avatar_1.png"
 import avatar2 from "./images/logorrhea_avatar_2.png"
@@ -45,6 +46,7 @@ function App(props) {
       <main>
         <div className="App">
           <Routes>
+            
             <Route path="/" element={
               <Login
                 handleNameChange={handleNameChange}
@@ -59,6 +61,11 @@ function App(props) {
                 avatar={avatar}
                 color={avatarColor}
               />} />
+
+            <Route path="/about" element={
+              <About
+              />} />
+
           </Routes>
         </div>
       </main>
